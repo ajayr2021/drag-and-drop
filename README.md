@@ -1,6 +1,5 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# drag-and-drop
+created demo project where user can drag notes from one section to another without use of any third party library
 
 ## Available Scripts
 
