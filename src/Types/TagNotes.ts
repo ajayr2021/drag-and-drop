@@ -9,4 +9,5 @@ export type TagNotesContextType = {
   addNotes: (noteTitle: string, tagId: number) => void;
   deleteNotes: (noteId: number) => void;
   getNotesByTagId: (tagId: number) => TagNotes[];
+  deleteAllNotesWithTagId: (tagId: number) => void;
 };

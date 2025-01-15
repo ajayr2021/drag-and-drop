@@ -1,4 +1,9 @@
-import React, { PropsWithChildren, useContext, useEffect, useState } from "react";
+import React, {
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { TagNotes, TagNotesContextType } from "src/Types";
 
 const TagNotesContext = React.createContext<TagNotesContextType>({
@@ -6,6 +11,7 @@ const TagNotesContext = React.createContext<TagNotesContextType>({
   addNotes: (noteTitle: string, tagId: number): void => {},
   deleteNotes: (noteId: number): void => {},
   getNotesByTagId: (tagId: number): TagNotes[] => [],
+  deleteAllNotesWithTagId: (tagId: number): void => {},
 });
 
 const TagNotesProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
@@ -33,13 +39,23 @@ const TagNotesProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     return notes.filter((note) => note.tagId === tagId);
   };
 
+  const deleteAllNotesWithTagId = (tagId: number): void => {
+    setNotes((prev) => prev.filter((item) => item.tagId !== tagId));
+  };
+
   useEffect(() => {
     localStorage.setItem("notesList", JSON.stringify(notes));
-  }, [notes])
+  }, [notes]);
 
   return (
     <TagNotesContext.Provider
-      value={{ notes, addNotes, deleteNotes, getNotesByTagId }}
+      value={{
+        notes,
+        addNotes,
+        deleteNotes,
+        getNotesByTagId,
+        deleteAllNotesWithTagId,
+      }}
     >
       {children}
     </TagNotesContext.Provider>

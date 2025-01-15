@@ -40,7 +40,10 @@ const Tags = () => {
             <Chip
               key={tag.id}
               label={tag.title}
-              onDelete={() => removeTag(tag.id)}
+              onDelete={(event) => {
+                event.preventDefault();
+                removeTag(tag.id);
+              }}
             />
           ))
         ) : (

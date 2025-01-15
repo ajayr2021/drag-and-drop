@@ -5,6 +5,7 @@ import React, {
   useState,
 } from "react";
 import { tagContext, tagData } from "../../Types";
+import { useTagNotes } from "../TagNotes/TagNotesContext";
 
 const TagsContext = React.createContext<tagContext>({
   tags: [],
@@ -13,6 +14,7 @@ const TagsContext = React.createContext<tagContext>({
 });
 
 const TagProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
+  const { deleteAllNotesWithTagId } = useTagNotes();
   const [tags, setTags] = useState<tagData[]>(() => {
     const storedTags = localStorage.getItem("tagsList");
     return storedTags ? JSON.parse(storedTags) : [];
@@ -28,6 +30,7 @@ const TagProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   };
 
   const removeTag = (tagId: number): void => {
+    deleteAllNotesWithTagId(tagId);
     setTags((prev) => prev.filter((tag) => tag.id !== tagId));
   };
 

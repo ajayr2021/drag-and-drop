@@ -4,11 +4,11 @@ import TagNotesProvider from "src/Context/TagNotes/TagNotesContext";
 
 const App = () => {
   return (
-    <TagProvider>
-      <TagNotesProvider>
+    <TagNotesProvider>
+      <TagProvider>
         <Website />
-      </TagNotesProvider>
-    </TagProvider>
+      </TagProvider>
+    </TagNotesProvider>
   );
 };
 

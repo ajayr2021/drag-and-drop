@@ -27,7 +27,6 @@ const AddTagModel: React.FC<ModelProps> = ({ handleCloseDialog }) => {
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    console.log({ event });
     if (event.keyCode === 13 && !!tagTitle.trim().length) {
       event.preventDefault();
       handelAddDialog();
