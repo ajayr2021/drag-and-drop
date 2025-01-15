@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useContext, useState } from "react";
+import React, { PropsWithChildren, useContext, useEffect, useState } from "react";
 import { TagNotes, TagNotesContextType } from "src/Types";
 
 const TagNotesContext = React.createContext<TagNotesContextType>({
@@ -9,7 +9,10 @@ const TagNotesContext = React.createContext<TagNotesContextType>({
 });
 
 const TagNotesProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
-  const [notes, setNotes] = useState<TagNotes[]>([]);
+  const [notes, setNotes] = useState<TagNotes[]>(() => {
+    const storedNotes = localStorage.getItem("notesList");
+    return storedNotes ? JSON.parse(storedNotes) : [];
+  });
 
   const addNotes = (noteTitle: string, tagId: number): void => {
     setNotes((prev) => [
@@ -29,6 +32,10 @@ const TagNotesProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const getNotesByTagId = (tagId: number): TagNotes[] => {
     return notes.filter((note) => note.tagId === tagId);
   };
+
+  useEffect(() => {
+    localStorage.setItem("notesList", JSON.stringify(notes));
+  }, [notes])
 
   return (
     <TagNotesContext.Provider
